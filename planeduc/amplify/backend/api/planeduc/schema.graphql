@@ -1,0 +1,20 @@
+type Customer @model @searchable {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    puppy: String!
+    race: String!
+    birthdate: AWSDate!
+    paidCourses: Int!
+    courses: [Course] @mannyToManny(relationName: "CourseCustomer")
+}
+
+type Course @model {
+    id: ID!
+    date: AWSDate!
+    attendees: [Customer] @mannyToManny(relationName: "CourseCustomer")
+}
+
+# type Query {
+#     getNextCourse() : Course
+# }
