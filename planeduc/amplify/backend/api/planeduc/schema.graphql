@@ -1,4 +1,4 @@
-type Customer @model @searchable {
+type Customer @model @searchable @auth(rules: [{ allow: public }]){
     id: ID!
     firstName: String!
     lastName: String!
@@ -6,13 +6,13 @@ type Customer @model @searchable {
     race: String!
     birthdate: AWSDate!
     paidCourses: Int!
-    courses: [Course] @mannyToManny(relationName: "CourseCustomer")
+    courses: [Course] @manyToMany(relationName: "CourseCustomer")
 }
 
-type Course @model {
+type Course @model @auth(rules: [{ allow: public }]){
     id: ID!
     date: AWSDate!
-    attendees: [Customer] @mannyToManny(relationName: "CourseCustomer")
+    attendees: [Customer] @manyToMany(relationName: "CourseCustomer")
 }
 
 # type Query {
