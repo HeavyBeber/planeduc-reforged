@@ -5,6 +5,9 @@ type Customer @model @searchable @auth(rules: [{ allow: public }]){
     puppy: String!
     race: String!
     birthdate: AWSDate!
+    email: AWSEmail!
+    phoneNumber: String!
+    comment: String!
     paidCourses: Int!
     courses: [Course] @manyToMany(relationName: "CourseCustomer")
 }
@@ -12,6 +15,7 @@ type Customer @model @searchable @auth(rules: [{ allow: public }]){
 type Course @model @auth(rules: [{ allow: public }]){
     id: ID!
     date: AWSDate!
+    theme: String!
     attendees: [Customer] @manyToMany(relationName: "CourseCustomer")
 }
 

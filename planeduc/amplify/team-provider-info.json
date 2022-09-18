@@ -23,6 +23,17 @@
       "StackName": "amplify-planeduc-preprod-83619",
       "StackId": "arn:aws:cloudformation:eu-west-3:448863791900:stack/amplify-planeduc-preprod-83619/0a48ebd0-3653-11ed-985e-0a20bfd74e60",
       "AmplifyAppId": "d2d9nk9oxwi504"
+    },
+    "categories": {
+      "auth": {
+        "planeduc7306f9f2": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2d9nk9oxwi504",
+          "type": "manual"
+        }
+      }
     }
   }
 }
