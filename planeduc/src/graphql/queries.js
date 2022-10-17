@@ -25,6 +25,9 @@ export const searchCustomers = /* GraphQL */ `
         puppy
         race
         birthdate
+        email
+        phoneNumber
+        comment
         paidCourses
         createdAt
         updatedAt
@@ -57,6 +60,9 @@ export const getCustomer = /* GraphQL */ `
       puppy
       race
       birthdate
+      email
+      phoneNumber
+      comment
       paidCourses
       courses {
         nextToken
@@ -80,6 +86,9 @@ export const listCustomers = /* GraphQL */ `
         puppy
         race
         birthdate
+        email
+        phoneNumber
+        comment
         paidCourses
         createdAt
         updatedAt
@@ -93,6 +102,7 @@ export const getCourse = /* GraphQL */ `
     getCourse(id: $id) {
       id
       date
+      theme
       attendees {
         nextToken
       }
@@ -111,6 +121,7 @@ export const listCourses = /* GraphQL */ `
       items {
         id
         date
+        theme
         createdAt
         updatedAt
       }
@@ -131,6 +142,9 @@ export const getCourseCustomer = /* GraphQL */ `
         puppy
         race
         birthdate
+        email
+        phoneNumber
+        comment
         paidCourses
         createdAt
         updatedAt
@@ -138,6 +152,7 @@ export const getCourseCustomer = /* GraphQL */ `
       course {
         id
         date
+        theme
         createdAt
         updatedAt
       }

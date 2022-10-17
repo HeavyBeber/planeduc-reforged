@@ -10,6 +10,9 @@ export const onCreateCustomer = /* GraphQL */ `
       puppy
       race
       birthdate
+      email
+      phoneNumber
+      comment
       paidCourses
       courses {
         nextToken
@@ -28,6 +31,9 @@ export const onUpdateCustomer = /* GraphQL */ `
       puppy
       race
       birthdate
+      email
+      phoneNumber
+      comment
       paidCourses
       courses {
         nextToken
@@ -46,6 +52,9 @@ export const onDeleteCustomer = /* GraphQL */ `
       puppy
       race
       birthdate
+      email
+      phoneNumber
+      comment
       paidCourses
       courses {
         nextToken
@@ -60,6 +69,7 @@ export const onCreateCourse = /* GraphQL */ `
     onCreateCourse {
       id
       date
+      theme
       attendees {
         nextToken
       }
@@ -73,6 +83,7 @@ export const onUpdateCourse = /* GraphQL */ `
     onUpdateCourse {
       id
       date
+      theme
       attendees {
         nextToken
       }
@@ -86,6 +97,7 @@ export const onDeleteCourse = /* GraphQL */ `
     onDeleteCourse {
       id
       date
+      theme
       attendees {
         nextToken
       }
@@ -107,6 +119,9 @@ export const onCreateCourseCustomer = /* GraphQL */ `
         puppy
         race
         birthdate
+        email
+        phoneNumber
+        comment
         paidCourses
         createdAt
         updatedAt
@@ -114,6 +129,7 @@ export const onCreateCourseCustomer = /* GraphQL */ `
       course {
         id
         date
+        theme
         createdAt
         updatedAt
       }
@@ -135,6 +151,9 @@ export const onUpdateCourseCustomer = /* GraphQL */ `
         puppy
         race
         birthdate
+        email
+        phoneNumber
+        comment
         paidCourses
         createdAt
         updatedAt
@@ -142,6 +161,7 @@ export const onUpdateCourseCustomer = /* GraphQL */ `
       course {
         id
         date
+        theme
         createdAt
         updatedAt
       }
@@ -163,6 +183,9 @@ export const onDeleteCourseCustomer = /* GraphQL */ `
         puppy
         race
         birthdate
+        email
+        phoneNumber
+        comment
         paidCourses
         createdAt
         updatedAt
@@ -170,6 +193,7 @@ export const onDeleteCourseCustomer = /* GraphQL */ `
       course {
         id
         date
+        theme
         createdAt
         updatedAt
       }

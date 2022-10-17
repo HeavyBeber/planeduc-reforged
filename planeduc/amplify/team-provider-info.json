@@ -27,12 +27,6 @@
     "categories": {
       "auth": {
         "planeduc7306f9f2": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d2d9nk9oxwi504",
-          "type": "manual"
-        }
       }
     }
   }

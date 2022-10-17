@@ -5,37 +5,30 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { TextField } from '@mui/material';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
 
 function CustomerDetail() {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
+        <Typography sx={{ fontSize: 26 }} color="text.primary" gutterBottom>
+          Customer display name
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          Puppys name
         </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+        <TextField id="lastname-field" label="Nom" variant="standard" />
+        <TextField id="firstname-field" label="Prénom" variant="standard" />
+        <TextField id="puppy-field" label="Chiot" variant="standard" />
+        <TextField id="puppy-race-field" label="Race" variant="standard" />
+        <TextField id="puppy-birthdate-field" label="Date de naissance" variant="standard" />
+        <TextField id="email-field" label="Email" variant="standard" />
+        <TextField id="phone-number-field" label="Tel." variant="standard" />
+        <TextField id="commentary-field" label="Commentaires" variant="standard" />
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button color="success" /*variant="outlined" disabled*/ variant="contained">Sauvegarder</Button>
       </CardActions>
     </Card>
   );

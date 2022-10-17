@@ -6,9 +6,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { CustomerListMenu } from './CustomerListMenu';
-import { BottomNavigation, BottomNavigationAction, Card, CardActions, CardContent, createTheme, Paper, ThemeProvider } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Card, CardActions, CardContent, Paper } from '@mui/material';
 import { Add, Event } from '@mui/icons-material';
-import theme from './theme';
 
 
 const values = [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3];
@@ -58,14 +57,12 @@ function CustomerList() {
                 </List>
             </CardContent>
             <CardActions>
-                <ThemeProvider theme={theme}>
-                    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, bgcolor: 'background.default' }} elevation={3}>
-                        <BottomNavigation>
-                            <BottomNavigationAction label="Nouveau client" icon={<Add />} />
-                            <BottomNavigationAction label="Ajouter au cours" icon={<Event />}/>
-                        </BottomNavigation>
-                    </ Paper>
-                </ThemeProvider>
+                <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
+                    <BottomNavigation showLabels sx={{backgroundColor: "#69696a"}}>
+                        <BottomNavigationAction label="Nouveau client" icon={<Add />} />
+                        <BottomNavigationAction label="Ajouter au cours" icon={<Event />}/>
+                    </BottomNavigation>
+                </ Paper>
             </CardActions>
         </Card>
     );

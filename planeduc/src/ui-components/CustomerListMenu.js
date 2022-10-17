@@ -70,6 +70,7 @@ function CustomerListMenu(value) {
             }}
         >
             <MenuItem onClick={(value) => handleMenuItemClick(value)}>Modifier</MenuItem>
+            <MenuItem onClick={(value) => handleMenuItemClick(value)}>Payer des cours</MenuItem>
             <MenuItem onClick={(value) => handleMenuItemClick(value)}>Supprimer</MenuItem>
         </Menu>
         </div>
