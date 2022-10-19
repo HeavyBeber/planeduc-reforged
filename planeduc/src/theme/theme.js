@@ -102,6 +102,30 @@ const theme = {
       fontSize: 14,
     },
   },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          //backgroundColor:"red"
+        },
+      },
+    },
+    MuiBottomNavigation: {
+      styleOverrides: {
+        root: {
+          backgroundColor:"#69696a"
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        root: {
+          color:"#d7d7d7",
+          margin:"5px"
+        },
+      },
+    },
+  }
 };
 
 export default theme;

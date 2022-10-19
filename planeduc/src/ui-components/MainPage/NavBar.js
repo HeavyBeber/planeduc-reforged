@@ -1,19 +1,22 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from '@mui/material';
+import { Pets, } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { Pets } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
-const pages = ['Cours', 'Clients'];
+const pages = ['clients', 'cours'];
 const settings = ['Profile', 'Logout'];
 
 function NavBar() {
@@ -36,15 +39,13 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Pets sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -89,7 +90,11 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">
+                    <Link style={{ color: 'inherit',textDecoration: 'none', }} to= {`/${page}`}>
+                      {page}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -98,8 +103,6 @@ function NavBar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -120,7 +123,9 @@ function NavBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link style={{ color: 'inherit',textDecoration: 'none', }} to={`/${page}`}>
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>

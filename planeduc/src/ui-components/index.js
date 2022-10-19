@@ -1,3 +1,3 @@
-export { NavBar } from './NavBar';
-export { CustomerList } from './CustomerList';
-export { CustomerDetail } from './CustomerDetail';
+export { NavBar } from './MainPage/NavBar';
+export { CustomerPage } from './CustomerPage/index';
+export { CoursePage } from './CoursePage/index';
