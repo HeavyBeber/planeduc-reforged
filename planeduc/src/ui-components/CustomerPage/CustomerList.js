@@ -16,13 +16,17 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { BottomNavigation, BottomNavigationAction, Button, Card, CardActions, CardContent } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Card, CardActions, CardContent, Collapse } from '@mui/material';
 import { Add, Event } from '@mui/icons-material';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 function createData(name, dog, race, age, comments, payed) {
   return {
@@ -36,18 +40,18 @@ function createData(name, dog, race, age, comments, payed) {
 }
 
 const rows = [
-  createData('Melba Roper', 'Jasmine' , "Rottweiler", "18 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",2),
-  createData('Folco Headstrong', 'Amber' , "Berger Australien", "12 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",1),
-  createData('Esmeralda Gamgee', 'Shannon' , "Golden", "24 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",0),
-  createData('Gerda Bolger', 'Alfie' , "Labrador", "6 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",8),
-  createData('Bercilac Gaukrogers', 'Melissa' , "Labrador", "7 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",4),
-  createData('Dinodas Took', 'Samantha' , "Cavalier King Charles", "9 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",3),
-  createData('Salvia Underhill', 'Brandon' , "Staffie", "6 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",2),
-  createData('Gorbadoc Took-Brandybuck', 'Rhys' , "Staff", "10 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",1),
-  createData('Melilot Galbassi', 'Imogen' , "Malinois", "11 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",0),
-  createData('Iolo Hayward', 'Grace' , "Cavalier King Charles", "7 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",5),
-  createData('Alfrida Burrows', 'Sophia' , "Staff", "3 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",4),
-  createData('Pandora Gawkroger', 'Alisha' , "Biggle", "4 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng",3),
+  createData('Melba Roper', 'Jasmine', "Rottweiler", "18 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 2),
+  createData('Folco Headstrong', 'Amber', "Berger Australien", "12 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 1),
+  createData('Esmeralda Gamgee', 'Shannon', "Golden", "24 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 0),
+  createData('Gerda Bolger', 'Alfie', "Labrador", "6 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 8),
+  createData('Bercilac Gaukrogers', 'Melissa', "Labrador", "7 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 4),
+  createData('Dinodas Took', 'Samantha', "Cavalier King Charles", "9 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 3),
+  createData('Salvia Underhill', 'Brandon', "Staffie", "6 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 2),
+  createData('Gorbadoc Took-Brandybuck', 'Rhys', "Staff", "10 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 1),
+  createData('Melilot Galbassi', 'Imogen', "Malinois", "11 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 0),
+  createData('Iolo Hayward', 'Grace', "Cavalier King Charles", "7 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 5),
+  createData('Alfrida Burrows', 'Sophia', "Staff", "3 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 4),
+  createData('Pandora Gawkroger', 'Alisha', "Biggle", "4 mois", "c'est très très trèslong vraiment lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng", 3),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -115,7 +119,7 @@ const headCells = [
     id: 'courses',
     numeric: true,
     disablePadding: false,
-    label: 'Cours payés',
+    label: 'Payés',
   },
 ];
 
@@ -136,7 +140,7 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              'aria-label': 'select all',
             }}
           />
         </TableCell>
@@ -205,7 +209,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          Clients
         </Typography>
       )}
 
@@ -230,13 +234,152 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+function TablePaginationActions(props) {
+  const { count, page, rowsPerPage, onPageChange } = props;
+
+  const handleFirstPageButtonClick = (event) => {
+    onPageChange(event, 0);
+  };
+
+  const handleBackButtonClick = (event) => {
+    onPageChange(event, page - 1);
+  };
+
+  const handleNextButtonClick = (event) => {
+    onPageChange(event, page + 1);
+  };
+
+  const handleLastPageButtonClick = (event) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
+
+  return (
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
+        <FirstPageIcon />
+      </IconButton>
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        <KeyboardArrowLeft />
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        <KeyboardArrowRight />
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        <LastPageIcon />
+      </IconButton>
+    </Box>
+  );
+}
+
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
+
+function Row(props) {
+  const { row } = props;
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <React.Fragment>
+      <TableRow
+        hover
+        onClick={(event) => props.handleClick(event, row.name)}
+        role="checkbox"
+        aria-checked={props.isItemSelected}
+        tabIndex={-1}
+        key={row.name}
+        selected={props.isItemSelected}
+      >
+        <TableCell padding="checkbox">
+          <Checkbox
+            color="primary"
+            checked={props.isItemSelected}
+            inputProps={{
+              'aria-labelledby': props.labelId,
+            }}
+          />
+        </TableCell>
+        <TableCell
+          component="th"
+          id={props.labelId}
+          scope="row"
+          padding="none"
+        >
+          {row.name}
+        </TableCell>
+        <TableCell align="left">{row.dog}</TableCell>
+        <TableCell align="left">{row.race}</TableCell>
+        <TableCell align="left">{row.age}</TableCell>
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell align="right">{row.payed}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                Notes
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableBody>
+                  <TableRow>
+                    <TableCell align="left">{row.comments}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+}
+
+Row.propTypes = {
+  row: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    dog: PropTypes.string.isRequired,
+    race: PropTypes.string.isRequired,
+    age: PropTypes.string.isRequired,
+    Notes: PropTypes.string.isRequired,
+    payed: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
 function CustomerList() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [dense, setDense] = React.useState(true);
+  const [rowsPerPage, setRowsPerPage] = React.useState(15);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -293,104 +436,73 @@ function CustomerList() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Card sx={{ minWidth: 275}}>
-        <CardContent>
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {rows.slice().sort(getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
+    <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Box sx={{ width: '100%' }}>
+          <Paper sx={{ width: '100%', mb: 2 }}>
+            <EnhancedTableToolbar numSelected={selected.length} />
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={dense ? 'small' : 'medium'}
+              >
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows.length}
+                />
+                <TableBody>
+                  {rows.slice().sort(getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      const isItemSelected = isSelected(row.name);
+                      const labelId = `enhanced-table-checkbox-${index}`;
+                      return (
+                        <Row key={row.name} row={row} handleClick={handleClick} isItemSelected={isItemSelected} labelId={labelId} />
+                      );
+                    })}
+                  {emptyRows > 0 && (
                     <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
+                      style={{
+                        height: (dense ? 33 : 53) * emptyRows,
+                      }}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.dog}</TableCell>
-                      <TableCell align="right">{row.race}</TableCell>
-                      <TableCell align="right">{row.age}</TableCell>
-                      <TableCell align="right">{row.comments}</TableCell>
-                      <TableCell align="right">{row.payed}</TableCell>
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
-            </CardContent>
-            <CardActions>
-                <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                    <BottomNavigation showLabels>
-                        <BottomNavigationAction label="Nouveau client" icon={<Add />} />
-                        <BottomNavigationAction label="Ajouter au cours" icon={<Event />} />
-                    </BottomNavigation>
-                </ Paper>
-            </CardActions>
-        </Card>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 15, 20, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </Paper>
+          {/* <FormControlLabel
+                              control={<Switch checked={dense} onChange={handleChangeDense} />}
+                              label="Dense padding"
+                            /> */}
+        </Box>
+      </CardContent>
+      <CardActions>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation showLabels>
+            <BottomNavigationAction label="Nouveau client" icon={<Add />} />
+            <BottomNavigationAction label="Ajouter au cours" icon={<Event />} />
+          </BottomNavigation>
+        </ Paper>
+      </CardActions>
+    </Card>
   );
 }
 
