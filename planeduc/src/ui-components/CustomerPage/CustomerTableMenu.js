@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ArrowRight, Settings } from "@mui/icons-material"
 import { IconButton, Menu, MenuItem } from "@mui/material"
 
-function CustomerListMenu(value) {
+function CustomerListMenu(props, value) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     
@@ -13,10 +13,13 @@ function CustomerListMenu(value) {
       setAnchorEl(null);
     };
 
+    const setCustomerCallback = () => props.setCustomerCallback(props.customer)
+
     const handleMenuItemClick = (value) => {
-      //setSelectedIndex(index);
-      setAnchorEl(null);
+        setCustomerCallback();
+        setAnchorEl(null);
     };
+
 
     
     const menuId = `menu-label-${value}`;

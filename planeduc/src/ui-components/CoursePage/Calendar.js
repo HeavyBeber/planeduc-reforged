@@ -1,159 +1,175 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import list from '@fullcalendar/list' // a plugin!
+import frLocale from '@fullcalendar/core/locales/fr';
+import { BottomNavigation, BottomNavigationAction, Button, Card, CardActions, Input, Modal, Paper, Popover } from '@mui/material';
+import { Add } from '@mui/icons-material';
+
 import dayjs from 'dayjs';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import Card from '@mui/material/Card';
-import MenuItem from '@mui/material/MenuItem';
-import DialogActions from '@mui/material/DialogActions';
-import { unstable_useId as useId } from '@mui/utils';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import { CalendarPicker } from '@mui/x-date-pickers';
 
-import { useLocaleText, WrapperVariantContext } from '@mui/x-date-pickers/internals';
+export const Calendar = (props) => {
 
-const CustomActionBar = (props) => {
-  const { onAccept, onClear, onCancel, onSetToday, actions } = props;
-  const wrapperVariant = React.useContext(WrapperVariantContext);
-  const localeText = useLocaleText();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const id = useId();
+  // Liste des cours
+  const [events, setEvents] = React.useState([
+    { title: 'Cours 16h ', date: '2022-11-10', participants: [{ name: "Un gars" }, { name: "Une fille" }] },
+    { title: 'Cours 17h', date: '2022-11-10', participants: [{ name: "Deux gars" }, { name: "Deux filles" }] }
+  ]);
 
-  const actionsArray =
-    typeof actions === 'function' ? actions(wrapperVariant) : actions;
-
-  if (actionsArray == null || actionsArray.length === 0) {
-    return null;
+  // Ajouter un cours
+  const addEvent = (ev) => {
+    setEvents([...events, ev])
   }
 
-  const menuItems = actionsArray?.map((actionType) => {
-    switch (actionType) {
-      case 'clear':
-        return (
-          <MenuItem
-            data-mui-test="clear-action-button"
-            onClick={() => {
-              onClear();
-              setAnchorEl(null);
-            }}
-            key={actionType}
-          >
-            {localeText.clearButtonLabel}
-          </MenuItem>
-        );
+  // Date du date picker (ajouter un cours)
+  const defaultDate = dayjs(new Date());
+  const [date, setDate] = React.useState(defaultDate);
 
-      case 'cancel':
-        return (
-          <MenuItem
-            onClick={() => {
-              setAnchorEl(null);
-              onCancel();
-            }}
-            key={actionType}
-          >
-            {localeText.cancelButtonLabel}
-          </MenuItem>
-        );
+  // anchor du date picker
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClickPopover = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClosePopover = () => {
+    setAnchorEl(null);
+  };
 
-      case 'accept':
-        return (
-          <MenuItem
-            onClick={() => {
-              setAnchorEl(null);
-              onAccept();
-            }}
-            key={actionType}
-          >
-            {localeText.okButtonLabel}
-          </MenuItem>
-        );
+  const openPopover = Boolean(anchorEl);
+  const id = openPopover ? 'simple-popover' : undefined;
 
-      case 'today':
-        return (
-          <MenuItem
-            data-mui-test="today-action-button"
-            onClick={() => {
-              setAnchorEl(null);
-              onSetToday();
-            }}
-            key={actionType}
-          >
-            {localeText.todayButtonLabel}
-          </MenuItem>
-        );
 
-      default:
-        return null;
-    }
-  });
+  const defaultModalInputValue = "Cours"
+  const [openModal, setOpenModal] = React.useState(false);
+  const [modalInputValue, setModalInputValue] = React.useState(defaultModalInputValue)
+  const handleOpenModal = () => setOpenModal(true)
+  const handleCloseModal = () => {
+    setModalInputValue(defaultModalInputValue)
+    setDate(defaultDate)
+    setOpenModal(false)
+  }
+
+  const handleModalInputChange = (event) => {
+    setModalInputValue(event.target.value);
+  };
+
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    padding: '16px',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const createCourse = (title, date) => {
+    addEvent(
+      { title: title, date: date.format('YYYY-MM-DD'), participants: [{ name: "Un gars" }, { name: "Une fille" }] }
+    );
+    handleCloseModal()
+  }
 
   return (
-    <DialogActions>
-      <Button
-        id={`picker-actions-${id}`}
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={(event) => setAnchorEl(event.currentTarget)}
-      >
-        Actions
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={() => setAnchorEl(null)}
-        MenuListProps={{
-          'aria-labelledby': `picker-actions-${id}`,
+    <Card sx={{
+      padding: "16px",
+      width: "70%",
+      maxHeight: "770px",
+      overflow: "auto",
+    }}>
+      <FullCalendar
+        plugins={[dayGridPlugin, list]}
+        locales={[frLocale]}
+        locale='fr'
+        initialView="dayGridMonth"
+        eventContent={renderEventContent}
+        weekends={true}
+        views={{
+          dayGridMonth: {
+            aspectRatio: 2,
+            eventClick: ((event) => props.setSelectedCourseCallback(event.event)),
+            showNonCurrentDates: false,
+          },
+          listWeek: {
+            eventClick: ((event) => props.setSelectedCourseCallback(event.event)),
+            allDayText: ""
+          },
         }}
-      >
-        {menuItems}
-      </Menu>
-    </DialogActions>
-  );
-};
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,listWeek'
+        }}
+        events={events}
+      />
+      <CardActions>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation showLabels>
+            <BottomNavigationAction onClick={handleClickPopover
+              /* addEvent({ title: 'Cours 1', date: '2022-11-10' })*/} label="Nouveau cours" icon={<Add />} />
 
-CustomActionBar.propTypes = {
-  /**
-   * Ordered array of actions to display.
-   * If empty, does not display that action bar.
-   * @default `['cancel', 'accept']` for mobile and `[]` for desktop
-   */
-  actions: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.oneOf(['accept', 'cancel', 'clear', 'today'])),
-    PropTypes.func,
-  ]),
-  onAccept: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onClear: PropTypes.func.isRequired,
-  onSetToday: PropTypes.func.isRequired,
-};
+            <Popover
+              id={id}
+              open={openPopover}
+              anchorEl={anchorEl}
+              onClose={handleClosePopover}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <CalendarPicker date={date} onChange={(newDate) => {
+                  setDate(newDate);
+                  handleOpenModal();
+                  handleClosePopover()
+                }} />
+              </LocalizationProvider>
+            </Popover>
+            <Modal
+              open={openModal}
+              onKeyUp={
+                (event) => {
+                  if (event.key === "Enter") {
+                    createCourse(modalInputValue, date)
+                  }
+                }
+              }
+              onClose={handleCloseModal}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Card style={modalStyle}>
+                <Input id="course-name" value={modalInputValue} onChange={handleModalInputChange} label="Nom du cours" variant="outlined" />
+                <CardActions >
+                  <Button variant="contained" onClick={() => createCourse(modalInputValue, date)}>Valider</Button>
+                  <Button /*variant="outlined" disabled*/ onClick={handleCloseModal} variant="contained">Annuler</Button>
+                </CardActions>
+              </Card>
+            </Modal>
 
-function Calendar() {
-  const [value, setValue] = React.useState(() => dayjs('2022-02-01T00:00'));
-
-  return (
-    <Card >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StaticDatePicker
-            onChange={(newValue) => setValue(newValue)}
-            value={value}
-            renderInput={(params) => <TextField {...params} />}
-            components={{
-            ActionBar: CustomActionBar,
-            }}
-            componentsProps={{
-            actionBar: {
-                actions: ['today'],
-            },
-            }}
-        />
-        </LocalizationProvider>
+          </BottomNavigation>
+        </ Paper>
+      </CardActions>
     </Card>
-  );
+  )
 }
 
-export { Calendar }
+
+
+function renderEventContent(eventInfo) {
+  return (
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
+  )
+}

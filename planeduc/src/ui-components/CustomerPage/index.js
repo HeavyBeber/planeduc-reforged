@@ -1,9 +1,17 @@
 
-import { CustomerList } from './CustomerList';
-import { CustomerDetail } from './CustomerDetail';
+import { CustomerTable } from './CustomerTable';
 import { Stack } from '@mui/system';
+import { CustomerForm } from './CustomerForm';
+import * as React from 'react';
 
 function CustomerPage() {
+    const [customer, setCustomer] = React.useState({lastName:"456"});
+    const [open, setOpen] = React.useState(false);
+
+    const handleClose = () => setOpen(false)
+
+    const setCustomerCallback = (customer) => {setCustomer(customer); setOpen(true)}
+
 
     return (
         <Stack
@@ -14,8 +22,9 @@ function CustomerPage() {
           alignItems="flex-start"
           spacing={"16px"}
         >
-            <CustomerList />
-            <CustomerDetail />
+            <CustomerTable setCustomerCallback={setCustomerCallback}/>
+            {/* <CustomerDetail />  */}
+            <CustomerForm customer={customer} open={open} handleClose={handleClose}/>
         </Stack>
     );
 }

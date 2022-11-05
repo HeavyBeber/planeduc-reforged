@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 
-function CustomerDetail() {
+function CustomerDetail(customer) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent style={{display:"flex", flexDirection:"column"}}>
@@ -19,17 +19,17 @@ function CustomerDetail() {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Puppys name
         </Typography>
-        <TextField id="lastname-field" label="Nom" variant="standard" />
-        <TextField id="firstname-field" label="Prénom" variant="standard" />
-        <TextField id="puppy-field" label="Chiot" variant="standard" />
-        <TextField id="puppy-race-field" label="Race" variant="standard" />
-        <TextField id="puppy-birthdate-field" label="Date de naissance" variant="standard" />
-        <TextField id="email-field" label="Email" variant="standard" />
-        <TextField id="phone-number-field" label="Tel." variant="standard" />
-        <TextField id="commentary-field" label="Commentaires" variant="standard" />
+        <TextField id="lastname-field" label="Nom" variant='standard' defaultValue={customer.lastName}/>
+        <TextField id="firstname-field" label="Prénom" variant="standard" defaultValue={customer.firstName} />
+        <TextField id="puppy-field" label="Chiot" variant="standard"  defaultValue={customer.puppy}/>
+        <TextField id="puppy-race-field" label="Race" variant="standard"  defaultValue={customer.race}/>
+        <TextField id="puppy-birthdate-field" label="Date de naissance" variant="standard" defaultValue={customer.birthdate}/>
+        <TextField id="email-field" label="Email" variant="standard"  defaultValue={customer.email}/>
+        <TextField id="phone-number-field" label="Tel." variant="standard"  defaultValue={customer.phone}/>
+        <TextField id="commentary-field" label="Commentaires" variant="standard"  defaultValue={customer.comments}/>
       </CardContent>
       <CardActions>
-        <Button color="success" /*variant="outlined" disabled*/ variant="contained">Sauvegarder</Button>
+        <Button /*variant="outlined" disabled*/ variant="contained">Modifier</Button>
       </CardActions>
     </Card>
   );
